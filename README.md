@@ -1,2 +1,2 @@
-# scout-api
-Scouting API with security
+# Scout-API
+Scouting API with User Authentication and Roles.

@@ -1,0 +1,16 @@
+{
+    "name": "scout-api",
+    "author": "Kaushal Kapasi",
+    "contributors": [
+        {
+            "name": "Kaushal Kapasi",
+            "email": "kaushal.k.1241@gmail.com"
+        }
+    ],
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {}
+}
