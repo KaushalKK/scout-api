@@ -9,7 +9,8 @@ module.exports = function(Schema) {
             unique: true
         },
         name: String,
-        team: Number
+        team: Number,
+        password: String
     });
 
     return userSchema;

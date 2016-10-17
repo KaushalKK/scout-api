@@ -1,7 +1,7 @@
 module.exports = function () {
     'use strict';
 
-    switch (process.argv[2]) {
+    switch (process.argv[3]) {
         case 'prod':
             return {
                 dbConfig: ""
