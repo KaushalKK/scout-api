@@ -8,7 +8,7 @@ module.exports = function (router, db) {
             router.put(resource, function (req, res) {
                 var teamDetails = new db.models.Teams(req.body);
 
-                teamDetails.save().exec()
+                teamDetails.save()
                     .then(function (teamDetails) {
                         res.status(201).send(teamDetails);
                     })

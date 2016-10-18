@@ -8,7 +8,7 @@ module.exports = function (router, db) {
             router.put(resource, function (req, res) {
                 var eventDetails = new db.models.Events(req.body);
 
-                eventDetails.save().exec()
+                eventDetails.save()
                     .then(function (eventDetails) {
                         res.status(201).send(eventDetails);
                     })

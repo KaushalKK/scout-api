@@ -1,7 +1,7 @@
 "use strict";
 
 var bcrypt = require("bcryptjs");
-var jsonwebtoken = require("jwt");
+var jwt = require("jsonwebtoken");
 
 var secret = process.argv[2];
 
@@ -23,10 +23,10 @@ module.exports = function (router, db) {
                     "issuer": "frc-scout"
                 };
 
-                db.models.Users.find({ alias: username }).exec()
+                db.models.Users.findOne({ alias: username }).exec()
                     .then(function (userDetails) {
                         if (bcrypt.compareSync(password, userDetails.password)) {
-                            jwt.sign(payload, secret, options, function (token) {
+                            jwt.sign(payload, secret, options, function (err, token) {
                                 res.cookie("token", token);
                                 return res.status(200).send({ token: token });
                             });

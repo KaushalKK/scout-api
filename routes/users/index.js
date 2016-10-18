@@ -16,11 +16,12 @@ module.exports = function (router, db) {
                 };
                 var userDetails = new db.models.Users(userInput);
 
-                userDetails.save().exec()
+                userDetails.save()
                     .then(function (userDetails) {
                         res.status(201).send(userDetails);
                     })
                     .catch(function (err) {
+console.log(err);
                         res.status(400).send('Failed to create user.');
                     });
             });

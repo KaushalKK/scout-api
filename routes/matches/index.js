@@ -8,7 +8,7 @@ module.exports = function (router, db) {
             router.put(resource, function (req, res) {
                 var matchDetails = new db.models.Matches(req.body);
 
-                matchDetails.save().exec()
+                matchDetails.save()
                     .then(function (matchDetails) {
                         res.status(201).send(matchDetails);
                     })
@@ -18,4 +18,4 @@ module.exports = function (router, db) {
             });
         }
     };
-};;
+};
