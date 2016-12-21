@@ -1,20 +1,32 @@
 "use strict";
 
-module.exports = function (router, db) {
-    return {
-        "configureRoutes": function () {
-            var resource = "/event";
+module.exports = (router, db) => {
+    let events = db.models.Events;
 
-            router.put(resource, function (req, res) {
-                var eventDetails = new db.models.Events(req.body);
+    return {
+        "configureRoutes": () => {
+            const resource = "/event";
+
+            router.put(resource, (req, res) => {
+                var eventDetails = new events(req.body);
 
                 eventDetails.save()
-                    .then(function (eventDetails) {
+                    .then((eventDetails) => {
                         res.status(201).send(eventDetails);
                     })
-                    .catch(function (err) {
+                    .catch(() => {
                         res.status(400).send('Failed to create event.');
                     });
+            });
+
+            router.get(resource + "s", (req, res) => {
+                events.find({}, (err, eventList) => {
+                    if(!err) {
+                        res.status(200).send(eventList);
+                    } else {
+                        res.status(400).send('Could not get all events.');
+                    }
+                });
             });
         }
     };

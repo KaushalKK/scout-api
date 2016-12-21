@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = function(Schema) {
+module.exports = (Schema) => {
     var ObjectId = Schema.Types.ObjectId;
 
     var teamSchema = new Schema({
@@ -10,7 +10,8 @@ module.exports = function(Schema) {
         },
         name: String,
         location: String
-    });
+    },
+    { timestamps: true });
 
     return teamSchema;
 };

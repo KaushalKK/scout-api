@@ -5,8 +5,13 @@ module.exports = function(Schema) {
 
     var matchSchema = new Schema({
         number: Number,
-        eventCode: String
-    });
+        eventCode: String,
+        redTeams: String,
+        blueTeams: String,
+        redScore: Number,
+        blueScore: Number
+    },
+    { timestamps: true });
 
     return matchSchema;
 };

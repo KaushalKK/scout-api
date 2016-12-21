@@ -3,16 +3,16 @@
 var bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
 
-var secret = process.argv[2];
+const secret = process.argv[2];
 
-module.exports = function (router, db) {
+module.exports = (router, db) => {
     return {
-        "configureRoutes": function () {
-            var resource = "/auth";
+        "configureRoutes": () => {
+            const resource = "/auth";
 
-            router.post(resource + "/token", function (req, res) {
-                var username = req.body.username;
-                var password = req.body.password;
+            router.post(resource + "/token", (req, res) => {
+                let username = req.body.username;
+                let password = req.body.password;
 
                 var payload = {
                     "username": username
@@ -24,9 +24,9 @@ module.exports = function (router, db) {
                 };
 
                 db.models.Users.findOne({ alias: username }).exec()
-                    .then(function (userDetails) {
+                    .then((userDetails) => {
                         if (bcrypt.compareSync(password, userDetails.password)) {
-                            jwt.sign(payload, secret, options, function (err, token) {
+                            jwt.sign(payload, secret, options, (err, token) => {
                                 res.cookie("token", token);
                                 return res.status(200).send({ token: token });
                             });
@@ -34,7 +34,7 @@ module.exports = function (router, db) {
                             res.status(401).send("Incorrect username or password.");
                         }
                     })
-                    .catch(function (err) {
+                    .catch(() => {
                         res.status(500).send('Failed to login.');
                     });
             });

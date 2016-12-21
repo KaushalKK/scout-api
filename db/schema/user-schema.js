@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = function(Schema) {
+module.exports = (Schema) => {
     var ObjectId = Schema.Types.ObjectId;
 
     var userSchema = new Schema({
@@ -11,7 +11,8 @@ module.exports = function(Schema) {
         name: String,
         team: Number,
         password: String
-    });
+    },
+    { timestamps: true });
 
     return userSchema;
 };

@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose');
 
-module.exports = function (dbConfig) {
+module.exports = (dbConfig) => {
     var options = { promiseLibrary: require('q') };
     var db = mongoose.connect(dbConfig, options);
 

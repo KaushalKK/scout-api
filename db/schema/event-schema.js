@@ -1,12 +1,17 @@
 "use strict";
 
-module.exports = function(Schema) {
-    var ObjectId = Schema.Types.ObjectId;
+module.exports = (Schema) => {
+    // var ObjectId = Schema.Types.ObjectId;
 
-    var eventSchema = new Schema({
-        eventCode: String,
-        location: String
-    });
+    let eventSchema = new Schema({
+        eventCode: {
+            type: String,
+            unique: true
+        },
+        location: String,
+        week: Number
+    },
+    { timestamps: true });
 
     return eventSchema;
 };

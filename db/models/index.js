@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = function (mongoose, dbSchema) {
+module.exports = (mongoose, dbSchema) => {
     var teamModel = mongoose.model('Teams', dbSchema.team);
     var userModel = mongoose.model('Users', dbSchema.user);
     var eventModel = mongoose.model('Events', dbSchema.event);
