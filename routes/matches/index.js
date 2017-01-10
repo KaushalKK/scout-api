@@ -44,15 +44,39 @@ module.exports = (router, db) => {
             router.get(resource + "/:event/:number", (req, res) => {
                 let event = req.params.event,
                     number = req.parms.number;
+                let searchParams = {
+                    eventCode: event,
+                    number: number
+                };
 
-                matches.find({
-                    number: number,
-                    eventCode: event
-                }, (err, match) => {
+                matches.find(searchParams, (err, match) => {
                     if (!err) {
                         res.status(200).send(match);
                     } else {
                         res.status(400).send('Match ', number ,' at ', event, ' not found.');
+                    }
+                });
+            });
+
+            router.post(resource + "/:event/:number", (req, res) => {
+                let event = req.params.event,
+                    number = req.parms.number;
+                let searchParams = {
+                    eventCode: event,
+                    number: number
+                };
+                let match = {
+                    redTeams: JSON.stringify(req.body.redTeams),
+                    blueTeams: JSON.stringify(req.body.blueTeams),
+                    redScore: req.body.redScore || 0,
+                    blueScore: req.body.blueScore || 0
+                };
+
+                matches.update(searchParams, match, (err) => {
+                    if (!err) {
+                        res.status(201).send('Details update Match ', number ,' at ', event, '.');
+                    } else {
+                        res.status(400).send('Failed to update Match ', number ,' at ', event, '.');
                     }
                 });
             });
