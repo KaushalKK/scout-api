@@ -19,7 +19,7 @@ module.exports = (Schema) => {
         tele_fuel_missed: Number,
         tele_gears: Number,
         tele_rotor: Number,
-        hoppers: Number,
+        loading_map: String,
         /* Hang */
 	take_off_attempt: Boolean,
         take_off_ready: Boolean,
