@@ -1,20 +1,22 @@
 "use strict";
 
-var bcrypt = require("bcryptjs");
+let bcrypt = require("bcryptjs");
 
 module.exports = (router, db) => {
+    const user = db.models.user;
+
     return {
         "configureRoutes": function () {
             const resource = "/user";
 
             router.put(resource, (req, res) => {
-                var userInput = {
+                let userInput = {
                     alias: req.body.alias,
                     name: req.body.name || '',
                     team: req.body.team,
                     password: bcrypt.hashSync(req.body.password, 10)
                 };
-                var userDetails = new db.models.Users(userInput);
+                let userDetails = new user(userInput);
 
                 userDetails.save()
                     .then((userDetails) => {

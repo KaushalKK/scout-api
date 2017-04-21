@@ -1,12 +1,15 @@
 "use strict";
 
 module.exports = (router, db) => {
+    const team = db.models.team;
+    const matchDetail = db.models.teamMatch;
+
     return {
         "configureRoutes": () => {
             const resource = "/team";
 
             router.put(resource, (req, res) => {
-                var teamDetails = new db.models.Teams(req.body);
+                let teamDetails = new team(req.body);
 
                 teamDetails.save()
                     .then((teamDetails) => {

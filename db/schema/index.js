@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = (mongoose) => {
-    var Schema = mongoose.Schema;
+    const Schema = mongoose.Schema;
 
     return {
         team: require('./team-schema')(Schema),

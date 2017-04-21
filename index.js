@@ -1,16 +1,16 @@
 "use strict";
 
 //libs
-var http = require('http');
-var morgan = require('morgan');
-var express = require('express');
-var bodyParser = require('body-parser');
+let http = require('http');
+let morgan = require('morgan');
+let express = require('express');
+let bodyParser = require('body-parser');
 
-var config = require('./config.js')();
-var routes = require('./routes/index')(config);
+let config = require('./config.js')();
+let routes = require('./routes/index')(config);
 
 //server config
-var app = express();
+let app = express();
 app.set('port', process.env.PORT || 8080);
 
 app.use(morgan('dev'));

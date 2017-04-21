@@ -1,14 +1,14 @@
 "use strict";
 
 module.exports = (router, db) => {
-    let matches = db.models.Matches;
+    const match = db.models.match;
 
     return {
         "configureRoutes": () => {
             const resource = "/match";
 
             router.put(resource, (req, res) => {
-                let match = {
+                let matchInfo = {
                     number: req.body.number,
                     eventCode: req.body.eventCode,
                     redTeams: JSON.stringify(req.body.redTeams) || "",
@@ -16,7 +16,7 @@ module.exports = (router, db) => {
                     redScore: req.body.redScore || 0,
                     blueScore: req.body.blueScore || 0
                 };
-                let matchDetails = new matches(match);
+                let matchDetails = new match(matchInfo);
 
                 matchDetails.save()
                     .then((matchDetails) => {
@@ -30,7 +30,7 @@ module.exports = (router, db) => {
             router.get(resource + "es/:event", (req, res) => {
                 let event = req.params.event;
 
-                matches.find({
+                match.find({
                     eventCode: event
                 }, (err, matchList) => {
                     if (!err) {
@@ -49,7 +49,7 @@ module.exports = (router, db) => {
                     number: number
                 };
 
-                matches.find(searchParams, (err, match) => {
+                match.find(searchParams, (err, match) => {
                     if (!err) {
                         res.status(200).send(match);
                     } else {
@@ -72,7 +72,7 @@ module.exports = (router, db) => {
                     blueScore: req.body.blueScore || 0
                 };
 
-                matches.update(searchParams, match, (err) => {
+                match.update(searchParams, match, (err) => {
                     if (!err) {
                         res.status(201).send('Details update Match ', number ,' at ', event, '.');
                     } else {

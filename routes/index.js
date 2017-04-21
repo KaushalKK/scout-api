@@ -1,16 +1,16 @@
 "use strict";
 
-var express = require('express');
+let express = require('express');
 
 module.exports = (config) => {
-    var router = express.Router();
-    var db = require('../db/index.js')(config.dbConfig);
+    let router = express.Router();
+    let db = require('../db/index.js')(config.dbConfig);
 
-    var authResource = require('./auth');
+    let authResource = require('./auth');
 
-    var userResource = require('./users');
-    var teamResource = require('./teams');
-    var eventResource = require('./events');
+    let userResource = require('./users');
+    let teamResource = require('./teams');
+    let eventResource = require('./events');
 
     authResource(router, db).configureRoutes();
     userResource(router, db).configureRoutes();

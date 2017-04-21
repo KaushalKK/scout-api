@@ -1,19 +1,19 @@
 "use strict";
 
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 
 module.exports = (dbConfig) => {
-    var options = { promiseLibrary: require('q') };
-    var db = mongoose.connect(dbConfig, options);
+    let options = { promiseLibrary: require('q') };
+    let db = mongoose.connect(dbConfig, options);
 
     mongoose.Promise = require('q').Promise;
 
-    var schema = require('./schema')(mongoose);
-    var models = require('./models')(mongoose, schema);
+    let schema = require('./schema')(mongoose);
+    let models = require('./models')(mongoose, schema);
 
-    var db = mongoose.connection;
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.once('open', function () {
+    let connection = mongoose.connection;
+    connection.on('error', console.error.bind(console, 'connection error:'));
+    connection.once('open', function () {
         // we're connected!
         console.log("DB Connected!");
     });

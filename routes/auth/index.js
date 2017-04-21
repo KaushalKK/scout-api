@@ -1,7 +1,7 @@
 "use strict";
 
-var bcrypt = require("bcryptjs");
-var jwt = require("jsonwebtoken");
+let bcrypt = require("bcryptjs");
+let jwt = require("jsonwebtoken");
 
 const secret = process.argv[2];
 
@@ -14,10 +14,10 @@ module.exports = (router, db) => {
                 let username = req.body.username;
                 let password = req.body.password;
 
-                var payload = {
+                let payload = {
                     "username": username
                 };
-                var options = {
+                let options = {
                     "algorithm": "RS256",
                     "expiresIn": "1h",
                     "issuer": "frc-scout"

@@ -8,7 +8,7 @@ module.exports = (router, db) => {
             const resource = "/event";
 
             router.put(resource, (req, res) => {
-                var eventDetails = new events(req.body);
+                let eventDetails = new events(req.body);
 
                 eventDetails.save()
                     .then((eventDetails) => {

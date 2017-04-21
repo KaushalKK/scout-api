@@ -1,15 +1,17 @@
 "use strict";
 
 module.exports = (mongoose, dbSchema) => {
-    var teamModel = mongoose.model('Teams', dbSchema.team);
-    var userModel = mongoose.model('Users', dbSchema.user);
-    var eventModel = mongoose.model('Events', dbSchema.event);
-    var matchModel = mongoose.model('Matches', dbSchema.match);
+    const teamModel = mongoose.model('Teams', dbSchema.team);
+    const userModel = mongoose.model('Users', dbSchema.user);
+    const eventModel = mongoose.model('Events', dbSchema.event);
+    const matchModel = mongoose.model('Matches', dbSchema.match);
+    const teamMatchModel = mongoose.model('TeamMatches', dbSchema.teamsMatches);
 
     return {
         team: teamModel,
         user: userModel,
         event: eventModel,
-        match: matchModel
+        match: matchModel,
+        teamMatch: teamMatchModel
     };
 };
