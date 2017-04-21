@@ -9,8 +9,8 @@ module.exports = (Schema) => {
             type: Object,
             required: true
         },
-        dataOwner: {
-            type: String,
+        owner: {
+            type: Number,
             required: true
         }
     },

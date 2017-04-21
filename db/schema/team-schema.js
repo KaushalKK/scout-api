@@ -7,7 +7,11 @@ module.exports = (Schema) => {
             unique: true
         },
         name: String,
-        location: String
+        location: String,
+        events: {
+            type: Array,
+            default: []
+        }
     },
     { timestamps: true });
 
