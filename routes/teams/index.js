@@ -2,7 +2,6 @@
 
 module.exports = (router, db) => {
     const team = db.models.team;
-    const matchDetail = db.models.teamMatch;
 
     return {
         "configureRoutes": () => {
@@ -58,28 +57,6 @@ module.exports = (router, db) => {
                         res.status(400).send('Could not update ' + team + ' details.');
                     }
                 });
-            });
-
-            router.put(resource + "/:team/:event/:match", (req, res) => {
-                let team = req.params.team;
-                let event = req.params.event;
-                let match = req.params.match;
-                
-                let matchDetails = new matchDetail({
-                        team: team,
-                        owner: team,
-                        event: event,
-                        match: match,
-                        data: req.body
-                });
-
-                matchDetails.save()
-                    .then((createdDetails) => {
-                        res.status(201).send(createdDetails);
-                    })
-                    .catch(() => {
-                        res.status(400).send('Failed to create match details.');
-                    });
             });
         }
     };

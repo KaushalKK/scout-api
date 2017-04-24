@@ -2,6 +2,7 @@
 
 module.exports = (router, db) => {
     const match = db.models.match;
+    const matchDetail = db.models.teamMatch;
 
     return {
         "configureRoutes": () => {
@@ -41,7 +42,7 @@ module.exports = (router, db) => {
                 });
             });
 
-            router.get(resource + "/:event/:number", (req, res) => {
+            router.get(resource + "/:event/match/:number", (req, res) => {
                 let event = req.params.event,
                     number = req.parms.number;
                 let searchParams = {
@@ -58,7 +59,7 @@ module.exports = (router, db) => {
                 });
             });
 
-            router.post(resource + "/:event/:number", (req, res) => {
+            router.post(resource + "/:event/match/:number", (req, res) => {
                 let event = req.params.event,
                     number = req.parms.number;
                 let searchParams = {
@@ -79,6 +80,35 @@ module.exports = (router, db) => {
                         res.status(400).send('Failed to update Match ', number ,' at ', event, '.');
                     }
                 });
+            });
+
+
+
+            router.put(resource + "/:event/:match/details", (req, res) => {
+                /* TODO: After Passport is implemented */
+                let team = req.body.team;
+                let owner = req.user.team || '1';
+                let event = req.params.event;
+                let match = req.params.match;
+                let dataMap = req.body.filter((entry) => {
+                    return entry.toLowerCase() !== 'team';
+                });
+                
+                let matchDetails = new matchDetail({
+                        team: team,
+                        event: event,
+                        match: match,
+                        owner: owner,
+                        data: dataMap
+                });
+
+                matchDetails.save()
+                    .then((createdDetails) => {
+                        res.status(201).send(createdDetails);
+                    })
+                    .catch(() => {
+                        res.status(400).send('Failed to create match details.');
+                    });
             });
         }
     };
