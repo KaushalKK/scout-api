@@ -1,14 +1,7 @@
-module.exports = function () {
-    'use strict';
+'use strict';
 
-    switch (process.argv[3]) {
-        case 'prod':
-            return {
-                dbConfig: ""
-            }
-        default:
-            return {
-                dbConfig: "mongodb://localhost/frc-scouting"
-            }
-    }
+module.exports = function () {
+    return {
+        dbConfig: "mongodb://localhost/frc-scouting"
+    };
 };

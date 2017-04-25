@@ -12,10 +12,10 @@ module.exports = (router, db) => {
             const resource = "/user";
             const cert = fs.readFileSync("keys/public_key");
 
-            router.put(resource, (req, res) => {
+            router.put(resource + "/register", (req, res) => {
                 let userInput = {
-                    alias: req.body.alias,
-                    name: req.body.name || '',
+                    alias: req.body.username,
+                    name: req.body.name,
                     team: req.body.team,
                     password: bcrypt.hashSync(req.body.password, 10)
                 };
@@ -49,7 +49,6 @@ module.exports = (router, db) => {
                             user: username,
                             team: userDetails.team
                         };
-
 
                         if (loginResult) {
                             jwt.sign(payload, cert, options, (token) => {

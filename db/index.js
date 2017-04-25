@@ -20,7 +20,7 @@ module.exports = (dbConfig) => {
 
     process.on('SIGTERM', function () {
         setTimeout(function () {
-            mongoose.close();
+            connection.close();
         }, 1000);
     });
 

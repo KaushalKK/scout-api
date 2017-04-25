@@ -19,7 +19,7 @@ module.exports = (router, db) => {
                     });
             });
 
-            resource.get(resource + "s", (req, res) => {
+            router.get(resource + "s", (req, res) => {
                 team.find({}, (err, teamList) => {
                     if (!err) {
                         res.status(200).send(teamList);
@@ -29,7 +29,7 @@ module.exports = (router, db) => {
                 });
             });
 
-            resource.get(resource + "/:team", (req, res) => {
+            router.get(resource + "/:team", (req, res) => {
                 let team = req.params.team;
 
                 team.findOne({
@@ -43,7 +43,7 @@ module.exports = (router, db) => {
                 });
             });
 
-            resource.post(resource + "/:team", (req, res) => {
+            router.post(resource + "/:team", (req, res) => {
                 let options = {};
                 let team = req.params.team;
                 let teamDetails = req.body;
