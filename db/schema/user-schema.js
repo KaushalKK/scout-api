@@ -7,8 +7,14 @@ module.exports = (Schema) => {
             unique: true
         },
         name: String,
-        team: Number,
-        password: String
+        team: {
+            type: Number,
+            required: true
+        },
+        password: String,
+        facebookId: String,
+        googleId: String,
+        twitterId: String
     },
     { timestamps: true });
 

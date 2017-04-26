@@ -1,8 +1,15 @@
 "use strict";
 
+/* Authentication Strategies */
+const googStrategy = require('passport-google-oauth').OAuth2Strategy;
+const fbkStrategy = require("passport-facebook").Strategy;
+const twtrStrategy = require('passport-twitter').Strategy;
+
+const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const fs = require("fs");
+const q = require("q");
 
 module.exports = (router, db) => {
     const user = db.models.user;
@@ -61,6 +68,67 @@ module.exports = (router, db) => {
                     })
                     .catch(() => {
                         loginResult = false;
+                        res.status(401).send('Incorrect username or password');
+                    });
+            });
+
+            router.post(resource + "/login/facebook", (req, res) => {
+                let options = {
+                    "algorithm": "RS256",
+                    "expiresIn": "1h",
+                    "issuer": "frcscout"
+                };
+
+                passport.use(new fbkStrategy({
+                    clientID: FACEBOOK_APP_ID,
+                    clientSecret: FACEBOOK_APP_SECRET,
+                    callbackURL: "http://www.example.com/auth/facebook/callback"
+                },
+                    function (accessToken, refreshToken, profile, done) {
+                        console.log(accessToken);
+                        console.log(refreshToken);
+                        console.log(profile);
+                        done();
+                    }
+                ));
+
+                user.findOne({ alias: username })
+                    .then((userDetails) => {
+
+                    })
+                    .catch(() => {
+                        res.status(401).send('Incorrect username or password');
+                    });
+            });
+
+            router.post(resource + "/login/google", (req, res) => {
+                let options = {
+                    "algorithm": "RS256",
+                    "expiresIn": "1h",
+                    "issuer": "frcscout"
+                };
+
+                user.findOne({ alias: username })
+                    .then((userDetails) => {
+                        
+                    })
+                    .catch(() => {
+                        res.status(401).send('Incorrect username or password');
+                    });
+            });
+
+            router.post(resource + "/login/twitter", (req, res) => {
+                let options = {
+                    "algorithm": "RS256",
+                    "expiresIn": "1h",
+                    "issuer": "frcscout"
+                };
+
+                user.findOne({ alias: username })
+                    .then((userDetails) => {
+                        
+                    })
+                    .catch(() => {
                         res.status(401).send('Incorrect username or password');
                     });
             });
