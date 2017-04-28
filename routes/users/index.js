@@ -7,9 +7,12 @@ const twtrStrategy = require('passport-twitter').Strategy;
 
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
 const fs = require("fs");
 const q = require("q");
+
+function completeLoginProcess() {
+    return q.resolve();
+}
 
 module.exports = (router, db) => {
     const user = db.models.user;
@@ -21,10 +24,9 @@ module.exports = (router, db) => {
 
             router.put(resource + "/register", (req, res) => {
                 let userInput = {
-                    alias: req.body.username,
+                    email: req.body.email,
                     name: req.body.name,
-                    team: req.body.team,
-                    password: bcrypt.hashSync(req.body.password, 10)
+                    team: req.body.team
                 };
                 let userDetails = new user(userInput);
 
@@ -45,15 +47,12 @@ module.exports = (router, db) => {
                     "issuer": "frcscout"
                 };
 
-                let username = req.body.username;
-                let password = req.body.password;
+                let email = req.body.email;
 
-                user.findOne({ alias: username })
+                user.findOne({ email: email })
                     .then((userDetails) => {
-                        loginResult = bcrypt.compareSync(password, userDetails.password);
-
                         let payload = {
-                            user: username,
+                            email: email,
                             team: userDetails.team
                         };
 
@@ -92,7 +91,7 @@ module.exports = (router, db) => {
                     }
                 ));
 
-                user.findOne({ alias: username })
+                user.findOne({ email: email })
                     .then((userDetails) => {
 
                     })
@@ -108,7 +107,7 @@ module.exports = (router, db) => {
                     "issuer": "frcscout"
                 };
 
-                user.findOne({ alias: username })
+                user.findOne({ email: email })
                     .then((userDetails) => {
                         
                     })
@@ -124,7 +123,7 @@ module.exports = (router, db) => {
                     "issuer": "frcscout"
                 };
 
-                user.findOne({ alias: username })
+                user.findOne({ email: email })
                     .then((userDetails) => {
                         
                     })

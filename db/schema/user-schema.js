@@ -2,16 +2,15 @@
 
 module.exports = (Schema) => {
     let userSchema = new Schema({
-        alias: {
-            type: String,
-            unique: true
-        },
         name: String,
         team: {
             type: Number,
             required: true
         },
-        password: String,
+        email: {
+            type: String,
+            unique: true
+        },
         facebookId: String,
         googleId: String,
         twitterId: String
